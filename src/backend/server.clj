@@ -12,7 +12,7 @@
             [hiccup.page :refer [html5 include-js include-css]]
             [ring.adapter.jetty :as jetty]
             [muuntaja.core :as m]
-            [clj-scramble.core :as s])
+            [backend.scramble :as s])
   (:gen-class))
 
 

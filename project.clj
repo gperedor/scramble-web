@@ -12,7 +12,6 @@
                  [ring "1.8.1"]
                  [metosin/reitit "0.5.12"]
                  [metosin/jsonista "0.3.1"]
-                 [clj-scramble "0.1.0-SNAPSHOT"]
                  [ring/ring-mock "0.4.0"]
                  [ring/ring-jetty-adapter "1.8.1"]
 
