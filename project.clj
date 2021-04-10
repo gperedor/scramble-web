@@ -24,7 +24,7 @@
 
                  ;; misc
                  [fipp "0.6.23"]]
-  
+
   :source-paths ["src"]
 
   :aliases {"check-run" ["do" "clean," "test," "fig:test," "run"]
