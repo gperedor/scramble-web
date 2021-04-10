@@ -1,4 +1,6 @@
 (ns frontend.core
+  "The core frontend, a Reagent application GETs the result of
+  the scramble function and displays the result"
   (:require-macros [cljs.core.async.macros :refer [go]])
   (:require [reagent.core :as r]
             [reagent.dom :as rdom]
@@ -38,6 +40,7 @@
         (= status 200))))
 
 (defn str-input
+  "Renders an atom-backed text input"
   [atm placeholder]
   (fn [atm placeholder]
     [:input {:type "text"

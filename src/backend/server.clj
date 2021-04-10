@@ -1,4 +1,5 @@
 (ns backend.server
+  "Core backend, it's just routing logic and error messages"
   (:require [reitit.ring :as ring]
             [reitit.coercion.spec]
             [reitit.swagger :as swagger]
@@ -54,7 +55,8 @@
 
       ["/api-docs/*"
        {:get {:no-doc true
-              :handler (swagger-ui/create-swagger-ui-handler)}}]
+              :handler (swagger-ui/create-swagger-ui-handler
+                        {:config {:validatorUrl nil}})}}]
 
       ["/scramble"
        {:get {:summary "Check if the first string can be scrambled to contain the second"
