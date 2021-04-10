@@ -7,13 +7,16 @@
             [cljs.core.async :refer [<!]]))
 
 
+(goog-define server-hostname "http://0.0.0.0")
+(goog-define server-port "3000")
+
 (defn remote-scramble?
   "Updates application state from the results of querying the backend"
   [str1 str2 result-text result-style]
-  (go (let [response (<! (http/get "http://0.0.0.0:3449/scramble"
-                                   {:with-credentials? false
-                                    :query-params {"str1" @str1
-                                                   "str2" @str2}}))
+  (go (let [response (<! (http/get "/scramble"
+                          {:with-credentials? false
+                           :query-params {"str1" @str1
+                                          "str2" @str2}}))
             {:keys [status body]} response]
         (reset! result-text
                 (cond (and (= 200 status) (:scrambled body))
@@ -36,10 +39,12 @@
 
 (defn str-input
   [atm placeholder]
-  [:input {:type "text"
-           :placeholder placeholder
-           :on-change  #(reset! atm (-> % .-target .-value))
-           :value @atm}])
+  (fn [atm placeholder]
+    [:input {:type "text"
+             :placeholder placeholder
+             :on-change  #(do (prn "working?")
+                              (reset! atm (-> % .-target .-value)))
+             :value @atm}]))
 
 (defn index
   "Main structure of the application"
@@ -50,19 +55,20 @@
         result-style (r/atom {})
         str1 (r/atom nil)
         str2 (r/atom nil)]
-    [:div
-     {:style {:font-family "sans-serif"}}
-     [:h2 "Scramble predicate"]
-
-     [:div {:style @result-style} @result-text]
+    (fn []
      [:div
-      (str-input str1 "listening")
-      (str-input str2 "silent")]
+      {:style {:font-family "sans-serif"}}
+      [:h2 "Scramble predicate"]
 
-     [:button
-      {:type "button"
-       :on-click (partial remote-scramble? str1 str2 result-text result-style)}
-      "Scrambled?"]]))
+      [:div {:style @result-style} @result-text]
+      [:div
+       [str-input str1 "listening"]
+       [str-input str2 "silent"]]
+
+      [:button
+       {:type "button"
+        :on-click (partial remote-scramble? str1 str2 result-text result-style)}
+       "Scrambled?"]])))
 
 
 (defn ^:export run []
