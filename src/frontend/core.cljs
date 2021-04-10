@@ -8,10 +8,6 @@
             [cljs-http.client :as http]
             [cljs.core.async :refer [<!]]))
 
-
-(goog-define server-hostname "http://0.0.0.0")
-(goog-define server-port "3000")
-
 (defn remote-scramble?
   "Updates application state from the results of querying the backend"
   [str1 str2 result-text result-style]
@@ -52,8 +48,7 @@
 (defn index
   "Main structure of the application"
   []
-  ;;; TODO: turn into a proper React component so that we
-  ;;; can manage the state more civilizedly than with 4 ratoms
+  ;;; TODO: bundle these ratoms in an app-state map
   (let [result-text (r/atom "Try me out!")
         result-style (r/atom {})
         str1 (r/atom nil)

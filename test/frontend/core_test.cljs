@@ -23,8 +23,8 @@
                                             {:status 200,
                                              :body {:scrambled true}})]
                      (<! (remote-scramble? str1 str2 result-text result-style)))]
-               (is (and resp-success (=  "A scramble!" @result-text)))
-               (is (and resp-success (= {:color "green"} @result-style)))
+               (is (= [true "A scramble!"] [resp-success @result-text]))
+               (is (= [true {:color "green"}] [resp-success @result-style]))
                (done))))))
 
 (deftest get-not-scrambled-side-effects
