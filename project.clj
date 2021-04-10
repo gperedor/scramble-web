@@ -9,11 +9,16 @@
   :dependencies [;; Backend
                  [org.clojure/clojure "1.10.0"]
 
+                 ;; The ring dependency versions have to be managed
+                 ;; carefully. Reitit or figwheel can either crash
+                 ;; with obscure error messages if one or more ring
+                 ;; dependencies don't line up
                  [ring "1.8.1"]
+                 [ring/ring-jetty-adapter "1.8.1"]
+
                  [metosin/reitit "0.5.12"]
                  [metosin/jsonista "0.3.1"]
                  [ring/ring-mock "0.4.0"]
-                 [ring/ring-jetty-adapter "1.8.1"]
 
                  ;; Frontend
                  [org.clojure/clojurescript "1.10.773"]
