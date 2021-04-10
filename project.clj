@@ -27,7 +27,7 @@
 
   :source-paths ["src"]
 
-  :aliases {"check-run" ["do" "clean," "test," "fig:test," "run"]
+  :aliases {"check-run" ["do" "clean," "test," "fig:test," "run" "-m" "figwheel.main" "-bo" "dev," "run"]
             "fig"       ["trampoline" "run" "-m" "figwheel.main"]
             "fig:build" ["trampoline" "run" "-m" "figwheel.main" "-b" "dev" "-r"]
             "fig:min"   ["run" "-m" "figwheel.main" "-O" "advanced" "-bo" "dev"]
@@ -38,4 +38,4 @@
                    :main ^:skip-aot backend.server
                    :resource-paths ["target"]
                    ;; need to add the compiled assets to the :clean-targets
-                   :clean-targets ^{:protect false} ["target"]}})
+                   :clean-targets ^{:protect false} ["target" "resources/public/cljs-out"]}})
